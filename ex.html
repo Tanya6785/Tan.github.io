@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header, footer {
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 1em 0;
+        }
+        main {
+            padding: 2em;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+        form > div {
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Website Header</h1>
+    </header>
+
+    <main>
+        <h2>Form Validation Example</h2>
+        <form id="exampleForm" onsubmit="return validateForm(event)">
+            <div>
+                <label for="text">Text:</label>
+                <input type="text" id="text" name="text">
+                <span id="textError" class="error"></span>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+                <span id="emailError" class="error"></span>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+                <span id="passwordError" class="error"></span>
+            </div>
+            <div>
+                <label for="file">File:</label>
+                <input type="file" id="file" name="file">
+                <span id="fileError" class="error"></span>
+            </div>
+            <div>
+                <label for="time">Time:</label>
+                <input type="time" id="time" name="time">
+                <span id="timeError" class="error"></span>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+            <div>
+                <span id="successMessage" class="success"></span>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <p>Website Footer &copy; 2024</p>
+    </footer>
+
+    <script>
+        function validateForm(event) {
+            event.preventDefault(); // Prevent the form from submitting
+
+            let isValid = true;
+
+            // Reset success message
+            document.getElementById('successMessage').innerText = '';
+
+            // Validate text input
+            const text = document.getElementById('text').value;
+            if (!text) {
+                isValid = false;
+                document.getElementById('textError').innerText = 'Text is required.';
+            } else {
+                document.getElementById('textError').innerText = '';
+            }
+
+            // Validate email input
+            const email = document.getElementById('email').value;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email) {
+                isValid = false;
+                document.getElementById('emailError').innerText = 'Email is required.';
+            } else if (!emailPattern.test(email)) {
+                isValid = false;
+                document.getElementById('emailError').innerText = 'Invalid email format.';
+            } else {
+                document.getElementById('emailError').innerText = '';
+            }
+
+            // Validate password input
+            const password = document.getElementById('password').value;
+            if (!password) {
+                isValid = false;
+                document.getElementById('passwordError').innerText = 'Password is required.';
+            } else {
+                document.getElementById('passwordError').innerText = '';
+            }
+
+            // Validate file input
+            const file = document.getElementById('file').files[0];
+            if (!file) {
+                isValid = false;
+                document.getElementById('fileError').innerText = 'File is required.';
+            } else {
+                document.getElementById('fileError').innerText = '';
+            }
+
+            // Validate time input
+            const time = document.getElementById('time').value;
+            if (!time) {
+                isValid = false;
+                document.getElementById('timeError').innerText = 'Time is required.';
+            } else {
+                document.getElementById('timeError').innerText = '';
+            }
+
+            if (isValid) {
+                document.getElementById('successMessage').innerText = 'Form submitted successfully!';
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>
